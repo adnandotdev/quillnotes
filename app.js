@@ -51,7 +51,7 @@ app.post('/register', async (req, res) => {
         email,   
         password: hash
     })
-    const token = jwt.sign({email, userid: user._id}, "this is the word")
+    const token = jwt.sign({email, userid: user._id}, process.env.SECRET_KEY)
     res.cookie("token", token)
     res.redirect("/profile")
 })
@@ -65,7 +65,7 @@ app.post('/login', async (req, res) => {
     
     const result = await bcrypt.compare(password, user.password)
     if(result) {
-        const token = jwt.sign({email, userid: user._id}, "this is the word")
+        const token = jwt.sign({email, userid: user._id}, process.env.SECRET_KEY)
         res.cookie("token", token)
         res.redirect('/profile')
         
@@ -102,7 +102,6 @@ app.post('/addnote/:id',isLoggedIn, async (req, res) => {
     await user.save()
     res.redirect('/profile')
     
-    console.log(id)
 
 })
 
