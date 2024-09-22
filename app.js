@@ -84,7 +84,7 @@ app.get('/logout', (req, res) => {
 function isLoggedIn(req, res, next){
     if(req.cookies.token === "") res.redirect('/login')
     else{
-        const data = jwt.verify(req.cookies.token, "this is the word")
+        const data = jwt.verify(req.cookies.token, process.env.SECRET_KEY)
         req.user = data
     }
     next()
