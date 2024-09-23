@@ -108,4 +108,4 @@ app.post('/addnote/:id', isLoggedIn, async (req, res) => {
     res.redirect('/profile');
 });
 
-module.exports.handler = serverless(app);
+app.listen(process.env.PORT || 3000)
